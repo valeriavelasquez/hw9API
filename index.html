@@ -1,88 +1,81 @@
 <!doctype html>
 <html>
-<head>
-    <style>
-    
-        body{
-            text-align: center;
-            font-family: sans-serif;
-        }
-    </style>
-	<title>Weather API</title>
-	<meta charset="utf-8"/>
-	<script>
-		function getExchangeRate() {
-			/* Step 1: Make instance of request object...
-			...to make HTTP request after page is loaded*/
-			request = new XMLHttpRequest();
-			console.log("1 - request object created");
- 
-			// Step 2: Set the URL for the AJAX request to be the JSON file
- 
-		request.open("GET", "https://v6.exchangerate-api.com/v6/9c8bff2abea525ec3615497b/latest/USD", true)
-
-			console.log("2 - opened request file");
- 
-			// Step 3: set up event handler/callback
-
-			request.onreadystatechange = function() {
-				console.log("3 - readystatechange event fired.");
- 
-				if (request.readyState == 4 && request.status == 200) {
-
-					// Step 5: wait for done + success
-					console.log("5 - response received");
-					result = request.responseText;
-					e_rate = JSON.parse(result);
-					
-					document.getElementById("data").innerHTML ="CURRENT RATE IN US DOLLARS (USD): " + e_rate["conversion_rates"]["USD"];
-                    document.getElementById("data2").innerHTML ="CURRENT RATE IN AUSTRALIAN DOLLARS (AUD): " + e_rate["conversion_rates"]["AUD"];
-                     document.getElementById("data3").innerHTML ="CURRENT RATE IN EUROS (EUR): " + e_rate["conversion_rates"]["EUR"];
-                     document.getElementById("data4").innerHTML ="CURRENT RATE IN YEN (JPY) " + e_rate["conversion_rates"]["JPY"];
-                    
-					
-					
-				}
-				else if (request.readyState == 4 && request.status != 200) {
-
-					document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
-
-				}
-
-				else if (request.readyState == 3) {
-
-					document.getElementById("data").innerHTML = "Too soon!  Try again";
-
-				}
-
-			}
-		// Step 4: fire off the HTTP request
-			request.send();
-			console.log("4 - Request sent");
-		}
-	</script>
-</head>
-
-
-<body>
-    
-    <h1>Exchange Rates for the US, Australia, the EU and Japan</h1>
-    
-    <p> This API has currency conversion on Autopilot and provides up to date currency exchange rate on various countries.
-    The website I found it on is https://www.exchangerate-api.com. The options or parameters that I used in this API where the 
-    conversion rates and the currency code of the country I wanted to display. "conversion_rates" and the "[countrycode]". This API 
-        is useful in many, many contexts. A travel agency website could use this to help clients plan their finances for upcoming trips.
-        It would also be useful for people investing money abroad or banking abroad. 
-</p>
-    
-    <br>
-    <button onclick="getExchangeRate()">DISPLAY EXCHANGE RATES</button>
-    
-    <br>
-    <br>
-	<div id="data"></div>
-    <div id="data2"></div>
-    <div id="data3"></div>
-    <div id="data4"></div>
-</body>
+   <head>
+      <style>
+         body{
+         text-align: center;
+         font-family: sans-serif;
+         }
+      </style>
+      <title>Exchange Rates API</title>
+      <meta charset="utf-8"/>
+      <script>
+         function getExchangeRate() {
+         	/* Step 1: Make instance of request object...
+         	...to make HTTP request after page is loaded*/
+         	request = new XMLHttpRequest();
+         	console.log("1 - request object created");
+         
+         	// Step 2: Set the URL for the AJAX request to be the JSON file
+         
+         request.open("GET", "https://v6.exchangerate-api.com/v6/9c8bff2abea525ec3615497b/latest/USD", true)
+         
+         	console.log("2 - opened request file");
+         
+         	// Step 3: set up event handler/callback
+         
+         	request.onreadystatechange = function() {
+         		console.log("3 - readystatechange event fired.");
+         
+         		if (request.readyState == 4 && request.status == 200) {
+         
+         			// Step 5: wait for done + success
+         			console.log("5 - response received");
+         			result = request.responseText;
+         			e_rate = JSON.parse(result);
+         			
+         			document.getElementById("data").innerHTML ="CURRENT RATE IN US DOLLARS (USD): " + e_rate["conversion_rates"]["USD"];
+                           document.getElementById("data2").innerHTML ="CURRENT RATE IN AUSTRALIAN DOLLARS (AUD): " + e_rate["conversion_rates"]["AUD"];
+                            document.getElementById("data3").innerHTML ="CURRENT RATE IN EUROS (EUR): " + e_rate["conversion_rates"]["EUR"];
+                            document.getElementById("data4").innerHTML ="CURRENT RATE IN YEN (JPY) " + e_rate["conversion_rates"]["JPY"];
+                           
+         			
+         			
+         		}
+         		else if (request.readyState == 4 && request.status != 200) {
+         
+         			document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+         
+         		}
+         
+         		else if (request.readyState == 3) {
+         
+         			document.getElementById("data").innerHTML = "Too soon!  Try again";
+         
+         		}
+         
+         	}
+         // Step 4: fire off the HTTP request
+         	request.send();
+         	console.log("4 - Request sent");
+         }
+      </script>
+   </head>
+   <body>
+      <h1>Exchange Rates for the US, Australia, the EU and Japan</h1>
+      <p> This API has currency conversion on Autopilot and provides up to date currency exchange rate on various countries.
+         The website I found it on is https://www.exchangerate-api.com. The options or parameters that I used in this API where the 
+         conversion rates and the currency code of the country I wanted to display. "conversion_rates" and the "[countrycode]". This API 
+         is useful in many, many contexts. A travel agency website could use this to help clients plan their finances for upcoming trips.
+         It would also be useful for people investing money abroad or banking abroad. 
+      </p>
+      <br>
+      <button onclick="getExchangeRate()">DISPLAY EXCHANGE RATES</button>
+      <br>
+      <br>
+      <div id="data"></div>
+      <div id="data2"></div>
+      <div id="data3"></div>
+      <div id="data4"></div>
+   </body>
 </html>
