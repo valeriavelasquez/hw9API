@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet" />
+        <style>
+            body {
+                text-align: center;
+                font-family: "courier prime";
+                margin-left: 28%;
+                margin-right: 28%;
+                padding-bottom: 15px;
+                background-color: #85bb65;
+            }
+            div {
+                font-size: 13pt;
+            }
+
+            p {
+                font-size: 10pt;
+            }
+        </style>
+        <title>Exchange Rates API</title>
+        <meta charset="utf-8" />
+        <script>
+            function getExchangeRate() {
+                /* Step 1: Make instance of request object...
+			...to make HTTP request after page is loaded*/
+                request = new XMLHttpRequest();
+                console.log("1 - request object created");
+
+                // Step 2: Set the URL for the AJAX request to be the JSON file
+
+                request.open("GET", "https://v6.exchangerate-api.com/v6/9c8bff2abea525ec3615497b/latest/USD", true);
+
+                console.log("2 - opened request file");
+
+                // Step 3: set up event handler/callback
+
+                request.onreadystatechange = function () {
+                    console.log("3 - readystatechange event fired.");
+
+                    if (request.readyState == 4 && request.status == 200) {
+                        // Step 5: wait for done + success
+                        console.log("5 - response received");
+                        result = request.responseText;
+                        e_rate = JSON.parse(result);
+
+                        document.getElementById("data").innerHTML = "CURRENT RATE FOR YUAN(CNY): " + e_rate["conversion_rates"]["CNY"];
+                        document.getElementById("data2").innerHTML = "CURRENT RATE FOR AUSTRALIAN DOLLARS(AUD): " + e_rate["conversion_rates"]["AUD"];
+                        document.getElementById("data3").innerHTML = "CURRENT RATE FOR EUROS(EUR): " + e_rate["conversion_rates"]["EUR"];
+                        document.getElementById("data4").innerHTML = "CURRENT RATE FOR YEN(JPY): " + e_rate["conversion_rates"]["JPY"];
+                        document.getElementById("data5").innerHTML = "CURRENT RATE FOR CANADIAN DOLLARS(CAD): " + e_rate["conversion_rates"]["CAD"];
+                        document.getElementById("data6").innerHTML = "CURRENT RATE FOR THE EGYPTIAL POUND(EGP): " + e_rate["conversion_rates"]["EGP"];
+                        document.getElementById("data7").innerHTML = "CURRENT RATE FOR THE RUSSSIAN RUBBLE(RUB): " + e_rate["conversion_rates"]["RUB"];
+                    } else if (request.readyState == 4 && request.status != 200) {
+                        document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+                    } else if (request.readyState == 3) {
+                        document.getElementById("data").innerHTML = "Too soon!  Try again";
+                    }
+                };
+                // Step 4: fire off the HTTP request
+                request.send();
+                console.log("4 - Request sent");
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1 style="font-size: 22pt;">Exchange Rates from USD to Other Countries/Unions</h1>
+        <h2 style="font-size: 13pt;">China, Australia, the EU, Japan, Canada, Egypt and Russia</h2>
+
+        <p>
+            I selected an Exchange Rate API, which is "currency conversion on Autopilot." With this API, I am able to display the current exchange rates/currency rates of various countries from USD. I found this API on
+            <a href="https://www.exchangerate-api.com/" target="_blank">https://www.exchangerate-api.com/ </a>. The options/parameters I used in implementing this page with this API were "base_rate" (set to USD as I want to show rates from
+            USD to other currency), "conversion_rates" and the individual country codes (ex: "AUD" for Australian Dollar).
+        </p>
+
+        <p>
+            This application would be useful for a travel-agency website or an hotel website that is trying to promote tourism in foreign countries. This API would be useful to implement a page that is useful for clients who plan to travel
+            abroad and need to plan their finances for upcoming trips. It would also be useful because some clients seek to travel abroad when currency/exchange rates are lower than usual. Another application would be for a
+            banking/investment website that has clients all over the world and needs to cover international transactions. This API could be used in a banking app.
+        </p>
+
+        <br />
+        <button onclick="getExchangeRate()" style="border-radius: 5px; padding: 10px; font-family: 'courier prime';">DISPLAY EXCHANGE RATES</button>
+
+        <br />
+        <br />
+        <div id="data"></div>
+        <div id="data2"></div>
+        <div id="data3"></div>
+        <div id="data4"></div>
+        <div id="data5"></div>
+        <div id="data6"></div>
+        <div id="data7"></div>
+    </body>
+</html>
